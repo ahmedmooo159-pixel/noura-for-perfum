@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم | Luxury Perfume Boutique</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ========== GLOBAL LOADER ========== -->
+  <div id="admin-loader" class="page-loader hidden" aria-hidden="true">
+    <div class="loader-ring"></div>
+  </div>
+
+  <!-- ========== LOGIN SCREEN ========== -->
+  <section id="login-screen" class="login-screen">
+    <div class="login-card glass-card">
+      <h1 class="login-title">Luxury Perfume</h1>
+      <p class="login-subtitle">تسجيل الدخول للوحة التحكم</p>
+      
+      <div id="login-form" class="login-form">
+        <div class="form-group">
+          <label for="login-email">البريد الإلكتروني</label>
+          <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+          <label for="login-password">كلمة المرور</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        
+        <p id="login-error" class="login-error-msg" aria-live="polite"></p>
+        
+        <button type="button" id="login-btn" class="btn btn-gold btn-full">دخول</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ADMIN MAIN APP ========== -->
+  <main id="admin-app" class="admin-app hidden">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-inner">
+        <div class="admin-logo">
+          <span class="gold-text">Luxury Control</span>
+        </div>
+        <div class="admin-user-profile">
+          <span id="admin-user-name" class="admin-user-email">admin@example.com</span>
+          <button id="logout-btn" class="btn btn-outline btn-sm-logout">
+            <i data-lucide="log-out"></i>
+            خروج
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Layout Grid -->
+    <div class="admin-layout-container">
+      <!-- Sidebar Nav -->
+      <aside class="admin-sidebar glass-card">
+        <nav class="admin-nav" aria-label="قائمة الإدارة">
+          <a href="#" class="admin-nav-link active" data-tab="dashboard">
+            <i data-lucide="layout-dashboard"></i>
+            <span>الرئيسية</span>
+          </a>
+          <a href="#" class="admin-nav-link" data-tab="products">
+            <i data-lucide="package"></i>
+            <span>المنتجات</span>
+          </a>
+          <a href="#" class="admin-nav-link" data-tab="categories">
+            <i data-lucide="tags"></i>
+            <span>الفئات</span>
+          </a>
+          <a href="#" class="admin-nav-link" data-tab="orders">
+            <i data-lucide="shopping-cart"></i>
+            <span>الطلبات</span>
+          </a>
+          <a href="#" class="admin-nav-link" data-tab="settings">
+            <i data-lucide="sliders"></i>
+            <span>الإعدادات</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Panel View -->
+      <section class="admin-content" aria-label="محتوى الإدارة">
+        
+        <!-- ==================== DASHBOARD TAB ==================== -->
+        <div class="admin-tab" data-tab="dashboard">
+          <h2 class="tab-title">لوحة المؤشرات العامة</h2>
+          
+          <div class="stats-grid">
+            <div class="stat-card glass-card">
+              <div class="stat-icon"><i data-lucide="package"></i></div>
+              <div class="stat-info">
+                <h3>إجمالي المنتجات</h3>
+                <p id="stat-products">0</p>
+              </div>
+            </div>
+            <div class="stat-card glass-card">
+              <div class="stat-icon"><i data-lucide="tags"></i></div>
+              <div class="stat-info">
+                <h3>إجمالي الفئات</h3>
+                <p id="stat-categories">0</p>
+              </div>
+            </div>
+            <div class="stat-card glass-card">
+              <div class="stat-icon"><i data-lucide="shopping-cart"></i></div>
+              <div class="stat-info">
+                <h3>إجمالي الطلبات</h3>
+                <p id="stat-orders">0</p>
+              </div>
+            </div>
+            <div class="stat-card glass-card card-revenue">
+              <div class="stat-icon"><i data-lucide="dollar-sign"></i></div>
+              <div class="stat-info">
+                <h3>إجمالي المبيعات</h3>
+                <p id="stat-revenue" class="gold-text">0 EGP</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="latest-orders-section glass-card">
+            <h3 class="section-title-sm"><i data-lucide="clock"></i> أحدث الطلبات المستلمة</h3>
+            <div id="latest-orders-list" class="latest-orders-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== PRODUCTS TAB ==================== -->
+        <div class="admin-tab hidden" data-tab="products">
+          <div class="tab-header-actions">
+            <h2 class="tab-title">إدارة المنتجات</h2>
+            <button id="pf-new-btn" class="btn btn-gold">
+              <i data-lucide="plus-circle"></i> إضافة منتج جديد
+            </button>
+          </div>
+
+          <!-- Product Form Drawer (Overlay Panel) -->
+          <div id="product-form-panel" class="form-overlay-panel glass-card hidden">
+            <h3 id="product-form-title" class="form-panel-title">إضافة منتج جديد</h3>
+            <form id="product-form" class="admin-grid-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-name">اسم المنتج *</label>
+                  <input type="text" id="pf-name" placeholder="مثال: عود ملكي فاخر" required />
+                </div>
+                <div class="form-group">
+                  <label for="pf-brand">العلامة التجارية</label>
+                  <input type="text" id="pf-brand" placeholder="مثال: العربية للعود" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-category">الفئة</label>
+                  <input type="text" id="pf-category" placeholder="مثال: رجالي" />
+                </div>
+                <div class="form-group">
+                  <label for="pf-rating">التقييم (1-5)</label>
+                  <input type="number" id="pf-rating" min="1" max="5" placeholder="5" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-price">السعر الحالي (EGP) *</label>
+                  <input type="number" id="pf-price" placeholder="250" required />
+                </div>
+                <div class="form-group">
+                  <label for="pf-old-price">السعر القديم (EGP) [اختياري]</label>
+                  <input type="number" id="pf-old-price" placeholder="320" />
+                </div>
+                <div class="form-group">
+                  <label for="pf-discount">الخصم (%) [اختياري]</label>
+                  <input type="number" id="pf-discount" placeholder="20" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="pf-description">الوصف بالتفصيل *</label>
+                <textarea id="pf-description" rows="3" placeholder="اكتب وصفاً جذاباً للعطر ومكوناته..." required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pf-notes">مكونات العطر (مفصولة بفاصلة)</label>
+                  <input type="text" id="pf-notes" placeholder="العود, الورد, العنبر" />
+                </div>
+                <div class="form-group">
+                  <label for="pf-stock">الكمية المتوفرة (الافتراضي: لا نهائي)</label>
+                  <input type="number" id="pf-stock" placeholder="مثال: 50" />
+                </div>
+              </div>
+
+              <div class="form-group image-upload-group">
+                <label>صورة المنتج</label>
+                <div class="image-uploader-ui">
+                  <input type="text" id="pf-image-url" placeholder="رابط الصورة المباشر" />
+                  <div class="file-upload-wrapper">
+                    <label for="pf-image-upload" class="btn btn-outline upload-trigger">
+                      <i data-lucide="upload-cloud"></i> رفع ملف صورة
+                    </label>
+                    <input type="file" id="pf-image-upload" accept="image/*" class="hidden" />
+                    <button type="button" id="pf-upload-btn" class="hidden">رفع</button>
+                    <span id="pf-upload-progress" class="upload-progress-text"></span>
+                  </div>
+                </div>
+                <div class="preview-box">
+                  <img id="pf-image-preview" src="" alt="معاينة الصورة" onerror="this.style.display='none'; this.src=''" onload="this.style.display='block'" />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="pf-save" class="btn btn-gold">حفظ</button>
+                <button type="button" id="pf-cancel" class="btn btn-outline">إلغاء</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Product Table Section -->
+          <div class="table-container-wrap glass-card">
+            <div class="table-search-bar">
+              <label for="product-search" class="sr-only">ابحث عن منتج</label>
+              <input type="search" id="product-search" placeholder="ابحث عن منتج بالاسم أو العلامة التجارية..." />
+            </div>
+            <div class="responsive-table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>صورة</th>
+                    <th>الاسم والعلامة</th>
+                    <th>الفئة</th>
+                    <th>السعر الحالي</th>
+                    <th>الخصم</th>
+                    <th>الحالة</th>
+                    <th>خيارات التحكم</th>
+                  </tr>
+                </thead>
+                <tbody id="products-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== CATEGORIES TAB ==================== -->
+        <div class="admin-tab hidden" data-tab="categories">
+          <div class="tab-header-actions">
+            <h2 class="tab-title">إدارة الفئات</h2>
+            <button id="cf-new-btn" class="btn btn-gold">
+              <i data-lucide="plus-circle"></i> إضافة فئة جديدة
+            </button>
+          </div>
+
+          <!-- Category CRUD Panel -->
+          <div id="category-form-panel" class="form-overlay-panel glass-card hidden">
+            <h3 id="cf-form-title" class="form-panel-title">إضافة فئة</h3>
+            <form id="category-form" class="admin-grid-form">
+              <div class="form-group">
+                <label for="cf-name">اسم الفئة *</label>
+                <input type="text" id="cf-name" placeholder="مثال: نسائي" required />
+              </div>
+              <div class="form-group">
+                <label for="cf-image-url">رابط صورة الفئة *</label>
+                <input type="text" id="cf-image-url" placeholder="رابط صورة الفئة" required />
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-gold">حفظ</button>
+                <button type="button" id="cf-cancel" class="btn btn-outline">إلغاء</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Categories Table -->
+          <div class="table-container-wrap glass-card">
+            <div class="responsive-table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>صورة الفئة</th>
+                    <th>الاسم</th>
+                    <th>المنتجات المرتبطة</th>
+                    <th>خيارات التحكم</th>
+                  </tr>
+                </thead>
+                <tbody id="categories-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== ORDERS TAB ==================== -->
+        <div class="admin-tab hidden" data-tab="orders">
+          <h2 class="tab-title">إدارة الطلبات</h2>
+
+          <!-- Orders Filters and Search -->
+          <div class="orders-control-wrapper glass-card">
+            <div class="orders-search-box">
+              <label for="orders-search" class="sr-only">البحث في الطلبات</label>
+              <input type="search" id="orders-search" placeholder="ابحث باسم العميل أو رقم الهاتف..." />
+            </div>
+            
+            <div class="orders-filters-tabs" role="group" aria-label="تصفية الطلبات">
+              <button class="order-filter-btn active" data-filter="all">الكل</button>
+              <button class="order-filter-btn" data-filter="pending">قيد الانتظار</button>
+              <button class="order-filter-btn" data-filter="confirmed">مؤكد</button>
+              <button class="order-filter-btn" data-filter="delivered">تم التسليم</button>
+              <button class="order-filter-btn" data-filter="cancelled">ملغي</button>
+            </div>
+          </div>
+
+          <!-- Orders Table -->
+          <div class="table-container-wrap glass-card">
+            <div class="responsive-table-scroll">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>العميل</th>
+                    <th>الهاتف</th>
+                    <th>المنتجات المطلوبة</th>
+                    <th>الإجمالي</th>
+                    <th>الحالة</th>
+                    <th>التاريخ</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SETTINGS TAB ==================== -->
+        <div class="admin-tab hidden" data-tab="settings">
+          <h2 class="tab-title">إعدادات المتجر</h2>
+
+          <form id="settings-form" class="settings-form">
+            <!-- Basic settings -->
+            <div class="settings-section glass-card">
+              <h3><i data-lucide="info"></i> إعدادات أساسية</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-storeName">اسم المتجر</label>
+                  <input type="text" id="s-storeName" placeholder="Luxury Perfume" />
+                </div>
+                <div class="form-group">
+                  <label for="s-metaDesc">الوصف الميتا للمتصفح (SEO)</label>
+                  <input type="text" id="s-metaDesc" placeholder="أرقى العطور العربية والعالمية" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-favicon">رابط الفايكون (Favicon)</label>
+                  <input type="text" id="s-favicon" />
+                </div>
+                <div class="form-group">
+                  <label for="s-logoUrl">رابط الشعار الحالي (Logo)</label>
+                  <input type="text" id="s-logoUrl" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group upload-row">
+                  <label for="s-logo-upload" class="btn btn-outline btn-upload">
+                    <i data-lucide="image"></i> رفع شعار جديد
+                  </label>
+                  <input type="file" id="s-logo-upload" accept="image/*" class="hidden" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Layout Section -->
+            <div class="settings-section glass-card">
+              <h3><i data-lucide="image"></i> واجهة البانر الرئيسي (Hero)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-heroTitle">العنوان الرئيسي</label>
+                  <input type="text" id="s-heroTitle" placeholder="اكتشف عالم الرفاهية" />
+                </div>
+                <div class="form-group">
+                  <label for="s-heroSubtitle">العنوان الفرعي</label>
+                  <input type="text" id="s-heroSubtitle" placeholder="أرقى العطور الشرقية" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="s-heroDesc">الوصف التعريفي</label>
+                <textarea id="s-heroDesc" rows="2" placeholder="عطور حصرية تحكي قصة الأناقة والفخامة"></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-heroCta">نص زر الشراء</label>
+                  <input type="text" id="s-heroCta" placeholder="تسوق الآن" />
+                </div>
+                <div class="form-group">
+                  <label for="s-heroBgUrl">رابط خلفية الهيرو</label>
+                  <input type="text" id="s-heroBgUrl" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group upload-row">
+                  <label for="s-hero-upload" class="btn btn-outline btn-upload">
+                    <i data-lucide="image"></i> رفع صورة خلفية الهيرو
+                  </label>
+                  <input type="file" id="s-hero-upload" accept="image/*" class="hidden" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Offer & Headings -->
+            <div class="settings-section glass-card">
+              <h3><i data-lucide="layout"></i> العروض والترويج وعناوين الأقسام</h3>
+              <div class="form-group">
+                <label for="s-offerBannerText">نص شريط الإعلانات الترويجي</label>
+                <input type="text" id="s-offerBannerText" placeholder="شحن مجاني للطلبات فوق 500 جنيه!" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-featuredLabel">تسمية قسم العطور</label>
+                  <input type="text" id="s-featuredLabel" placeholder="مجموعتنا المميزة" />
+                </div>
+                <div class="form-group">
+                  <label for="s-featuredTitle">عنوان قسم العطور</label>
+                  <input type="text" id="s-featuredTitle" placeholder="أبرز العطور" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-categoriesLabel">تسمية قسم الفئات</label>
+                  <input type="text" id="s-categoriesLabel" placeholder="تصفح حسب" />
+                </div>
+                <div class="form-group">
+                  <label for="s-categoriesTitle">عنوان قسم الفئات</label>
+                  <input type="text" id="s-categoriesTitle" placeholder="الفئات" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-whyTitle">عنوان قسم (لماذا تختارنا)</label>
+                  <input type="text" id="s-whyTitle" placeholder="لماذا تختارنا؟" />
+                </div>
+                <div class="form-group">
+                  <label for="s-testimonialsTitle">عنوان قسم (آراء العملاء)</label>
+                  <input type="text" id="s-testimonialsTitle" placeholder="آراء عملائنا" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Why Us Columns -->
+            <div class="settings-section glass-card">
+              <h3><i data-lucide="star"></i> مميزات المتجر (لماذا تختارنا)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-why1Title">ميزة 1: العنوان</label>
+                  <input type="text" id="s-why1Title" placeholder="جودة أصيلة" />
+                </div>
+                <div class="form-group">
+                  <label for="s-why1Desc">ميزة 1: التفاصيل</label>
+                  <input type="text" id="s-why1Desc" placeholder="نقدم فقط عطوراً أصيلة 100%" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-why2Title">ميزة 2: العنوان</label>
+                  <input type="text" id="s-why2Title" placeholder="توصيل سريع" />
+                </div>
+                <div class="form-group">
+                  <label for="s-why2Desc">ميزة 2: التفاصيل</label>
+                  <input type="text" id="s-why2Desc" placeholder="نوصل طلبك في أسرع وقت ممكن" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-why3Title">ميزة 3: العنوان</label>
+                  <input type="text" id="s-why3Title" placeholder="دفع آمن" />
+                </div>
+                <div class="form-group">
+                  <label for="s-why3Desc">ميزة 3: التفاصيل</label>
+                  <input type="text" id="s-why3Desc" placeholder="طرق دفع متعددة وآمنة" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer & Contact info -->
+            <div class="settings-section glass-card">
+              <h3><i data-lucide="phone"></i> معلومات التواصل والفوتر</h3>
+              <div class="form-group">
+                <label for="s-footerDesc">وصف الفوتر التعريفي</label>
+                <textarea id="s-footerDesc" rows="2" placeholder="متجرك المفضل لأرقى العطور العربية والعالمية."></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-footerPhone">رقم هاتف المتجر</label>
+                  <input type="tel" id="s-footerPhone" placeholder="+20 100 000 0000" />
+                </div>
+                <div class="form-group">
+                  <label for="s-footerEmail">البريد الإلكتروني للدعم</label>
+                  <input type="email" id="s-footerEmail" placeholder="support@luxuryperfume.com" />
+                </div>
+                <div class="form-group">
+                  <label for="s-footerAddress">عنوان المعرض / المقر</label>
+                  <input type="text" id="s-footerAddress" placeholder="القاهرة، جمهورية مصر العربية" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-whatsappNumber">رقم الواتساب لاستقبال الطلبات (صيغة دولية بدون أصفار/علامات)</label>
+                  <input type="text" id="s-whatsappNumber" placeholder="201000000000" />
+                </div>
+                <div class="form-group">
+                  <label for="s-facebookUrl">رابط صفحة فيسبوك</label>
+                  <input type="url" id="s-facebookUrl" placeholder="https://facebook.com/..." />
+                </div>
+                <div class="form-group">
+                  <label for="s-instagramUrl">رابط حساب انستجرام</label>
+                  <input type="url" id="s-instagramUrl" placeholder="https://instagram.com/..." />
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping & Style Overrides -->
+            <div class="settings-section glass-card">
+              <h3><i data-lucide="paint-brush"></i> تكاليف التوصيل وتخصيص المظهر</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="s-deliveryFee">رسوم الشحن والتوصيل (EGP)</label>
+                  <input type="number" id="s-deliveryFee" placeholder="50" />
+                </div>
+                <div class="form-group">
+                  <label for="s-colorGold">اللون الرئيسي (ذهبي Accent)</label>
+                  <input type="color" id="s-colorGold" />
+                </div>
+                <div class="form-group">
+                  <label for="s-colorDark">اللون الخلفي (Dark BG)</label>
+                  <input type="color" id="s-colorDark" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="s-fontDisplay">اسم خط العرض من Google Fonts (Display Font)</label>
+                <input type="text" id="s-fontDisplay" placeholder="Playfair Display" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="settings-save" class="btn btn-gold">حفظ الإعدادات</button>
+            </div>
+          </form>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- ========== ADMIN TOAST FEEDBACK ========== -->
+  <div id="admin-toast" class="admin-toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <!-- message added dynamically -->
+  </div>
+
+  <!-- Admin Controller module script -->
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

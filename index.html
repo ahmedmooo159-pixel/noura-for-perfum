@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="متجر عطور فاخرة - اكتشف أرقى العطور العربية والعالمية" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title id="page-title">Luxury Perfume Boutique</title>
+  <link rel="icon" id="favicon" href="assets/icons/favicon.ico" type="image/x-icon" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Raleway:wght@300;400;500;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== PAGE LOADER ========== -->
+  <div id="page-loader" class="page-loader" aria-hidden="true">
+    <div class="loader-ring"></div>
+  </div>
+
+  <!-- ========== STICKY HEADER ========== -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <!-- Logo -->
+      <a href="#home" class="logo-link">
+        <!-- ===== EDIT HERE: Replace Store Logo ===== -->
+        <img id="header-logo" class="header-logo hidden" alt="شعار المتجر" />
+        <!-- ===== EDIT HERE: Store Name ===== -->
+        <span id="header-brand" class="brand-name">Luxury Perfume</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="main-nav" id="main-nav" aria-label="القائمة الرئيسية">
+        <a href="#home"       class="nav-link">الرئيسية</a>
+        <a href="#products"   class="nav-link">المنتجات</a>
+        <a href="#categories" class="nav-link">الفئات</a>
+        <a href="#contact"    class="nav-link">تواصل</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button id="search-toggle" class="icon-btn" aria-label="بحث" aria-expanded="false">
+          <i data-lucide="search"></i>
+        </button>
+        <button id="cart-toggle" class="icon-btn cart-btn" aria-label="فتح سلة التسوق">
+          <i data-lucide="shopping-bag"></i>
+          <span id="cart-count" class="cart-badge hidden" aria-live="polite">0</span>
+        </button>
+        <a href="admin.html" class="icon-btn" aria-label="لوحة التحكم" title="Admin Panel">
+          <i data-lucide="settings"></i>
+        </a>
+        <button id="mobile-menu-toggle" class="icon-btn mobile-only" aria-label="فتح القائمة" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <nav class="mobile-nav hidden" id="mobile-nav" aria-label="القائمة المحمولة">
+      <a href="#home"       class="mobile-nav-link">الرئيسية</a>
+      <a href="#products"   class="mobile-nav-link">المنتجات</a>
+      <a href="#categories" class="mobile-nav-link">الفئات</a>
+      <a href="#contact"    class="mobile-nav-link">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <!-- ========== SEARCH BAR ========== -->
+  <div id="search-bar" class="search-bar hidden" role="search">
+    <div class="container">
+      <label for="search-input" class="sr-only">البحث في المنتجات</label>
+      <input id="search-input" type="search" placeholder="ابحث عن عطر..." class="search-input" autocomplete="off" />
+      <button id="search-close" class="icon-btn" aria-label="إغلاق البحث">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section id="home" class="hero-section" aria-label="القسم الرئيسي">
+    <div class="hero-bg">
+      <img id="hero-bg-img" class="hero-bg-img" src="" alt="عطور فاخرة" loading="eager" />
+      <div class="hero-overlay" aria-hidden="true"></div>
+    </div>
+    <div class="hero-content fade-in">
+      <p id="hero-subtitle" class="hero-subtitle">أرقى العطور الشرقية</p>
+      <h1 id="hero-title" class="hero-title">اكتشف عالم <br/><span class="gold-text">الرفاهية</span></h1>
+      <p id="hero-desc" class="hero-desc">عطور حصرية تحكي قصة الأناقة والفخامة</p>
+      <a href="#products" id="hero-cta" class="btn btn-gold">تسوق الآن</a>
+    </div>
+  </section>
+
+  <!-- ========== OFFER BANNER ========== -->
+  <div id="offer-banner" class="offer-banner hidden" role="alert" aria-live="polite">
+    <div class="container">
+      <span id="offer-banner-text"></span>
+    </div>
+  </div>
+
+  <!-- ========== FEATURED PRODUCTS ========== -->
+  <section id="products" class="section products-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p id="featured-label" class="section-label">مجموعتنا المميزة</p>
+        <h2 id="featured-title" class="section-title">أبرز العطور</h2>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar fade-in" id="category-filter-bar" role="group" aria-label="تصفية المنتجات">
+        <button class="filter-btn active" data-cat="all">الكل</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="products-grid" class="products-grid" role="list">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATEGORIES SECTION ========== -->
+  <section id="categories" class="section categories-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p id="categories-label" class="section-label">تصفح حسب</p>
+        <h2 id="categories-title" class="section-title">الفئات</h2>
+      </div>
+      <div id="categories-grid" class="categories-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY US SECTION ========== -->
+  <section class="section why-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 id="why-title" class="section-title">لماذا تختارنا؟</h2>
+      </div>
+      <div id="why-grid" class="why-grid">
+        <div class="why-card glass-card fade-in">
+          <div class="why-icon"><i data-lucide="gem"></i></div>
+          <h3 id="why-1-title">جودة أصيلة</h3>
+          <p id="why-1-desc">نقدم فقط عطورًا أصيلة 100% من أفضل دور العطور العالمية.</p>
+        </div>
+        <div class="why-card glass-card fade-in">
+          <div class="why-icon"><i data-lucide="truck"></i></div>
+          <h3 id="why-2-title">توصيل سريع</h3>
+          <p id="why-2-desc">نوصل طلبك في أسرع وقت ممكن لجميع أنحاء المملكة.</p>
+        </div>
+        <div class="why-card glass-card fade-in">
+          <div class="why-icon"><i data-lucide="shield-check"></i></div>
+          <h3 id="why-3-title">دفع آمن</h3>
+          <p id="why-3-desc">طرق دفع متعددة وآمنة مع ضمان استرداد الأموال.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ========== -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 id="testimonials-title" class="section-title">آراء عملائنا</h2>
+      </div>
+      <div id="testimonials-grid" class="testimonials-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER / CONTACT ========== -->
+  <footer id="contact" class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 id="footer-brand" class="footer-brand">Luxury Perfume</h3>
+        <p id="footer-desc" class="footer-desc">متجرك المفضل لأرقى العطور العربية والعالمية.</p>
+        <div class="social-links" id="social-links" aria-label="وسائل التواصل الاجتماعي">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="#products">المنتجات</a></li>
+          <li><a href="#categories">الفئات</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <!-- ===== EDIT HERE: Store Address & Phone ===== -->
+        <h4 class="footer-heading">تواصل معنا</h4>
+        <ul class="footer-contact">
+          <li id="footer-phone"></li>
+          <li id="footer-email"></li>
+          <li id="footer-address"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p id="footer-copyright">© 2025 Luxury Perfume. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <!-- ========== PRODUCT DETAIL MODAL ========== -->
+  <div id="product-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+    <div class="modal-overlay" id="product-modal-overlay"></div>
+    <div class="modal-box">
+      <!-- FIX: close button positioned inline-end for RTL support -->
+      <button class="modal-close icon-btn" id="product-modal-close" aria-label="إغلاق نافذة المنتج">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="product-detail">
+        <div class="product-detail-gallery">
+          <img id="modal-img" src="" alt="صورة المنتج" class="product-detail-img" />
+        </div>
+        <div class="product-detail-info">
+          <p id="modal-brand" class="product-brand-label"></p>
+          <h2 id="modal-name" class="product-detail-name" tabindex="-1"></h2>
+          <div id="modal-stars" class="stars-row" aria-label="التقييم"></div>
+          <div class="price-row">
+            <span id="modal-price" class="price-main"></span>
+            <span id="modal-old-price" class="price-old hidden"></span>
+            <span id="modal-discount-badge" class="discount-badge hidden"></span>
+          </div>
+          <p id="modal-desc" class="product-detail-desc"></p>
+          <div id="modal-notes" class="fragrance-notes hidden">
+            <h4 class="notes-title">مكونات العطر</h4>
+            <div id="modal-notes-list" class="notes-list"></div>
+          </div>
+          <button id="modal-add-to-cart" class="btn btn-gold btn-full">
+            <i data-lucide="shopping-bag"></i>
+            أضف إلى السلة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CART PANEL ========== -->
+  <div id="cart-overlay" class="panel-overlay hidden" aria-hidden="true"></div>
+  <aside id="cart-panel" class="side-panel" aria-label="سلة التسوق" aria-hidden="true">
+    <div class="panel-header">
+      <h2 class="panel-title">سلة التسوق</h2>
+      <button id="cart-close" class="icon-btn" aria-label="إغلاق السلة">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div id="cart-body" class="panel-body">
+      <div id="cart-empty-msg" class="cart-empty">
+        <i data-lucide="shopping-bag" style="width:48px;height:48px;opacity:0.3;display:block;margin:0 auto" aria-hidden="true"></i>
+        <p>سلتك فارغة</p>
+        <a href="#products" class="btn btn-outline" onclick="closeSidePanel('cart')">تسوق الآن</a>
+      </div>
+      <ul id="cart-items" class="cart-items-list" aria-live="polite" aria-label="محتوى السلة"></ul>
+    </div>
+    <div id="cart-footer" class="panel-footer hidden">
+      <div class="delivery-note" id="delivery-note-row"></div>
+      <div class="total-row">
+        <span>الإجمالي</span>
+        <span id="cart-total" class="total-amount">0 EGP</span>
+      </div>
+      <button id="checkout-btn" class="btn btn-gold btn-full">المتابعة للدفع</button>
+    </div>
+  </aside>
+
+  <!-- ========== CHECKOUT MODAL ========== -->
+  <div id="checkout-overlay" class="panel-overlay hidden" aria-hidden="true"></div>
+  <div id="checkout-panel" class="checkout-modal hidden" role="dialog" aria-modal="true" aria-label="إتمام الطلب">
+    <div class="checkout-inner">
+      <div class="panel-header">
+        <h2 class="panel-title">إتمام الطلب</h2>
+        <button id="checkout-close" class="icon-btn" aria-label="إغلاق نافذة الطلب">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <!-- Using form instead of div to support native validation and proper submit events -->
+      <form id="checkout-form" class="checkout-form">
+        <div class="form-group">
+          <label for="cust-name">الاسم الكامل *</label>
+          <input id="cust-name" type="text" placeholder="أدخل اسمك الكامل" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label for="cust-phone">رقم الهاتف *</label>
+          <input id="cust-phone" type="tel" placeholder="05XXXXXXXX" autocomplete="tel" required />
+        </div>
+        <div class="form-group">
+          <label for="cust-city">المدينة *</label>
+          <input id="cust-city" type="text" placeholder="اسم مدينتك" autocomplete="address-level2" required />
+        </div>
+        <div class="form-group">
+          <label for="cust-address">العنوان التفصيلي *</label>
+          <textarea id="cust-address" rows="2" placeholder="الحي، الشارع، رقم المبنى..." autocomplete="street-address" required></textarea>
+        </div>
+
+        <!-- Delivery type selector -->
+        <div class="form-group">
+          <label for="delivery-type">طريقة الاستلام</label>
+          <select id="delivery-type">
+            <option value="delivery">توصيل للمنزل</option>
+            <option value="pickup">استلام من المحل</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cust-notes">ملاحظات إضافية</label>
+          <textarea id="cust-notes" rows="2" placeholder="أي تعليمات للتوصيل..."></textarea>
+        </div>
+
+        <!-- Order Summary -->
+        <div id="checkout-summary" class="checkout-summary glass-card"></div>
+
+        <button type="submit" id="confirm-order-btn" class="btn btn-gold btn-full">
+          <i data-lucide="message-circle"></i>
+          تأكيد الطلب عبر واتساب
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== TOAST NOTIFICATION ========== -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <i data-lucide="check-circle" class="toast-icon" aria-hidden="true"></i>
+    <span id="toast-msg"></span>
+  </div>
+
+  <!-- ========== FLOATING BUTTONS ========== -->
+  <!-- ===== EDIT HERE: WhatsApp Number & Facebook URL ===== -->
+  <div class="floating-actions" aria-label="روابط التواصل">
+    <a id="whatsapp-float" href="#" target="_blank" rel="noopener noreferrer"
+       class="float-btn whatsapp-btn" aria-label="تواصل عبر واتساب">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.469A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.18-.583-5.92-1.602l-.425-.253-2.744.872.884-2.685-.277-.44A9.77 9.77 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/>
+      </svg>
+    </a>
+    <a id="facebook-float" href="#" target="_blank" rel="noopener noreferrer"
+       class="float-btn facebook-btn" aria-label="زيارة صفحة فيسبوك">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button id="back-to-top" class="back-to-top hidden" aria-label="العودة للأعلى">
+    <i data-lucide="chevron-up"></i>
+  </button>
+
+  <!-- Main Script (ES module) -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
