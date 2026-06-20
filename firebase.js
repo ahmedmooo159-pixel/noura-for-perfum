@@ -17,7 +17,7 @@
  * 5. انسخ الـ databaseURL وضعه أدناه
  */
 const FIREBASE_DB_URL =
-  'https://nouraberfum-default-rtdb.europe-west1.firebasedatabase.app'; // مثال: https://my-store-default-rtdb.firebaseio.com
+  'https://nouraberfum-default-rtdb.firebaseio.com'; // مثال: https://my-store-default-rtdb.firebaseio.com
 
 /* ─── هل Firebase مُفعَّل؟ ─────────────────────────────────────────────── */
 const FIREBASE_ENABLED =
@@ -139,7 +139,14 @@ const FB = {
 /* ── Convert Firebase object { key: val } → Array [ { id: key, ...val } ] ── */
 function _fbObjectToArray(obj) {
   if (!obj || typeof obj !== 'object') return [];
-  return Object.entries(obj).map(([id, val]) => ({ id, ...val }));
+  return Object.entries(obj).map(([id, val]) => {
+    // Normalize createdAt: Firebase stores it as a number, admin expects { seconds }
+    const item = { id, ...val };
+    if (typeof item.createdAt === 'number') {
+      item.createdAt = { seconds: Math.floor(item.createdAt / 1000) };
+    }
+    return item;
+  });
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -270,9 +277,10 @@ export async function setDoc(col, id, data) {
 
 /* ─── addDoc ────────────────────────────────────────────────────────────── */
 export async function addDoc(col, data) {
+  const createdAt = { seconds: Math.floor(Date.now() / 1000) };
   if (FIREBASE_ENABLED) {
     try {
-      const key = await FB.post(col, { ...data, createdAt: Date.now() });
+      const key = await FB.post(col, { ...data, createdAt: createdAt.seconds });
       return key;
     } catch (e) {
       console.warn(`[DB] Firebase addDoc failed`, e);
@@ -280,7 +288,7 @@ export async function addDoc(col, data) {
   }
   const arr = _lsRead(col) || [];
   const id = col[0] + '_' + Math.random().toString(36).substr(2, 9);
-  arr.push({ id, ...data, createdAt: { seconds: Date.now() / 1000 } });
+  arr.push({ id, ...data, createdAt });
   _lsWrite(col, arr);
   return id;
 }
