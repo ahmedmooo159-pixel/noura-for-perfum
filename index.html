@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,14 +12,18 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Raleway:wght@300;400;500;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Raleway:wght@300;400;500;600&family=Cairo:wght@300;400;600;700&display=swap"
+    rel="stylesheet" />
 
   <!-- Lucide Icons -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" defer></script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" id="main-css" href="style.css" />
+
 </head>
+
 <body>
 
   <!-- ========== PAGE LOADER ========== -->
@@ -39,10 +44,10 @@
 
       <!-- Desktop Nav -->
       <nav class="main-nav" id="main-nav" aria-label="القائمة الرئيسية">
-        <a href="#home"       class="nav-link">الرئيسية</a>
-        <a href="#products"   class="nav-link">المنتجات</a>
+        <a href="#home" class="nav-link">الرئيسية</a>
+        <a href="#products" class="nav-link">المنتجات</a>
         <a href="#categories" class="nav-link">الفئات</a>
-        <a href="#contact"    class="nav-link">تواصل</a>
+        <a href="#contact" class="nav-link">تواصل</a>
       </nav>
 
       <!-- Header Actions -->
@@ -68,10 +73,10 @@
 
     <!-- Mobile Nav Drawer -->
     <nav class="mobile-nav hidden" id="mobile-nav" aria-label="القائمة المحمولة">
-      <a href="#home"       class="mobile-nav-link">الرئيسية</a>
-      <a href="#products"   class="mobile-nav-link">المنتجات</a>
+      <a href="#home" class="mobile-nav-link">الرئيسية</a>
+      <a href="#products" class="mobile-nav-link">المنتجات</a>
       <a href="#categories" class="mobile-nav-link">الفئات</a>
-      <a href="#contact"    class="mobile-nav-link">تواصل معنا</a>
+      <a href="#contact" class="mobile-nav-link">تواصل معنا</a>
     </nav>
   </header>
 
@@ -94,7 +99,7 @@
     </div>
     <div class="hero-content fade-in">
       <p id="hero-subtitle" class="hero-subtitle">أرقى العطور الشرقية</p>
-      <h1 id="hero-title" class="hero-title">اكتشف عالم <br/><span class="gold-text">الرفاهية</span></h1>
+      <h1 id="hero-title" class="hero-title">اكتشف عالم <br /><span class="gold-text">الرفاهية</span></h1>
       <p id="hero-desc" class="hero-desc">عطور حصرية تحكي قصة الأناقة والفخامة</p>
       <a href="#products" id="hero-cta" class="btn btn-gold">تسوق الآن</a>
     </div>
@@ -258,7 +263,8 @@
     </div>
     <div id="cart-body" class="panel-body">
       <div id="cart-empty-msg" class="cart-empty">
-        <i data-lucide="shopping-bag" style="width:48px;height:48px;opacity:0.3;display:block;margin:0 auto" aria-hidden="true"></i>
+        <i data-lucide="shopping-bag" style="width:48px;height:48px;opacity:0.3;display:block;margin:0 auto"
+          aria-hidden="true"></i>
         <p>سلتك فارغة</p>
         <a href="#products" class="btn btn-outline" onclick="closeSidePanel('cart')">تسوق الآن</a>
       </div>
@@ -270,7 +276,7 @@
         <span>الإجمالي</span>
         <span id="cart-total" class="total-amount">0 EGP</span>
       </div>
-      <button id="checkout-btn" class="btn btn-gold btn-full">المتابعة للدفع</button>
+      <button id="checkout-btn" class="btn btn-gold btn-full">المتابعة </button>
     </div>
   </aside>
 
@@ -300,7 +306,8 @@
         </div>
         <div class="form-group">
           <label for="cust-address">العنوان التفصيلي *</label>
-          <textarea id="cust-address" rows="2" placeholder="الحي، الشارع، رقم المبنى..." autocomplete="street-address" required></textarea>
+          <textarea id="cust-address" rows="2" placeholder="الحي، الشارع، رقم المبنى..." autocomplete="street-address"
+            required></textarea>
         </div>
 
         <!-- Delivery type selector -->
@@ -359,17 +366,20 @@
   <!-- ========== FLOATING BUTTONS ========== -->
   <!-- ===== EDIT HERE: WhatsApp Number & Facebook URL ===== -->
   <div class="floating-actions" aria-label="روابط التواصل">
-    <a id="whatsapp-float" href="#" target="_blank" rel="noopener noreferrer"
-       class="float-btn whatsapp-btn" aria-label="تواصل عبر واتساب">
+    <a id="whatsapp-float" href="#" target="_blank" rel="noopener noreferrer" class="float-btn whatsapp-btn"
+      aria-label="تواصل عبر واتساب">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.469A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.18-.583-5.92-1.602l-.425-.253-2.744.872.884-2.685-.277-.44A9.77 9.77 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z"/>
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        <path
+          d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.469A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.18-.583-5.92-1.602l-.425-.253-2.744.872.884-2.685-.277-.44A9.77 9.77 0 012.182 12c0-5.422 4.396-9.818 9.818-9.818 5.422 0 9.818 4.396 9.818 9.818 0 5.422-4.396 9.818-9.818 9.818z" />
       </svg>
     </a>
-    <a id="facebook-float" href="#" target="_blank" rel="noopener noreferrer"
-       class="float-btn facebook-btn" aria-label="زيارة صفحة فيسبوك">
+    <a id="facebook-float" href="#" target="_blank" rel="noopener noreferrer" class="float-btn facebook-btn"
+      aria-label="زيارة صفحة فيسبوك">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        <path
+          d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     </a>
   </div>
@@ -380,6 +390,15 @@
   </button>
 
   <!-- Main Script (ES module) -->
-  <script type="module" src="main.js"></script>
+  <script>
+    // Auto cache-busting
+    const v = Date.now();
+    document.getElementById('main-css').href = `style.css?v=${v}`;
+    const s = document.createElement('script');
+    s.type = 'module';
+    s.src = `main.js?v=${v}`;
+    document.body.appendChild(s);
+  </script>
 </body>
+
 </html>
