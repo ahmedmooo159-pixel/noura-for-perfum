@@ -6,7 +6,7 @@
 
 import { addDoc, fetchCollection } from './firebase.js';
 import { renderCheckoutSummary, getCartItems, getTotal, clearCart } from './cart.js';
-import { showToast, closeSidePanel } from './ui.js';
+import { showToast, closeSidePanel, openSidePanel } from './ui.js';
 
 /* ════════════════════════════════
    INIT
@@ -138,22 +138,16 @@ function _bindCheckoutSubmit() {
 function _bindTrackOrder() {
   /* Open tracking panel */
   document.getElementById('track-order-btn')?.addEventListener('click', () => {
-    document.getElementById('track-panel')?.classList.remove('hidden');
-    document.getElementById('track-overlay')?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+    openSidePanel('track');
     // clear previous results
     document.getElementById('track-results')?.classList.add('hidden');
-    document.getElementById('track-phone-input').value = '';
+    const inp = document.getElementById('track-phone-input');
+    if (inp) inp.value = '';
   });
 
   /* Close tracking panel */
-  const closeTrack = () => {
-    document.getElementById('track-panel')?.classList.add('hidden');
-    document.getElementById('track-overlay')?.classList.add('hidden');
-    document.body.style.overflow = '';
-  };
-  document.getElementById('track-close')?.addEventListener('click', closeTrack);
-  document.getElementById('track-overlay')?.addEventListener('click', closeTrack);
+  document.getElementById('track-close')?.addEventListener('click', () => closeSidePanel('track'));
+  document.getElementById('track-overlay')?.addEventListener('click', () => closeSidePanel('track'));
 
   /* Search orders by phone */
   document.getElementById('track-search-btn')?.addEventListener('click', _searchOrders);
