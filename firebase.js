@@ -80,7 +80,27 @@ function _read(key) {
 }
 
 function _write(key, data) {
-  localStorage.setItem(`lp_db_${key}`, JSON.stringify(data));
+  const serialized = JSON.stringify(data);
+  localStorage.setItem(`lp_db_${key}`, serialized);
+  // Fire synthetic storage event so same-tab listeners (main.js) also react
+  _notify(`lp_db_${key}`, serialized);
+}
+
+function _notifySettings(data) {
+  const serialized = JSON.stringify(data);
+  localStorage.setItem('lp_db_settings_store', serialized);
+  _notify('lp_db_settings_store', serialized);
+}
+
+function _notify(key, newValue) {
+  try {
+    window.dispatchEvent(new StorageEvent('storage', {
+      key,
+      newValue,
+      storageArea: localStorage,
+      url: window.location.href,
+    }));
+  } catch {}
 }
 
 /* ── Seed local DB if empty ── */
@@ -120,7 +140,7 @@ export async function fetchDoc(col, id) {
 
 export async function setDoc(col, id, data) {
   if (col === 'settings' && id === 'store') {
-    localStorage.setItem('lp_db_settings_store', JSON.stringify(data));
+    _notifySettings(data);
     return true;
   }
   const collection = _read(col) || [];

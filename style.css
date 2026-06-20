@@ -933,8 +933,53 @@ select   { cursor: pointer; }
   .products-grid    { grid-template-columns: 1fr 1fr; gap: 1rem; }
   .categories-grid  { grid-template-columns: 1fr; }
   .modal-box        { border-radius: var(--radius-sm); }
-  .checkout-modal   { padding: 0; align-items: flex-end; }
-  .checkout-inner   { border-radius: var(--radius) var(--radius) 0 0; }
+
+  /* ── Cart side panel full-screen on mobile ── */
+  .side-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .panel-body  { padding: 1rem; }
+  .panel-header { padding: 1rem; }
+  .panel-footer { padding: 1rem; }
+  .cart-item-img { width: 52px; height: 52px; }
+
+  /* ── Checkout modal slides up from bottom ── */
+  .checkout-modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .checkout-inner {
+    border-radius: var(--radius) var(--radius) 0 0;
+    max-height: 92dvh;
+    overflow-y: auto;
+  }
+  .checkout-form { padding: 1rem; gap: 0.75rem; }
+
+  /* ── Form inputs fully visible ── */
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label { font-size: 0.75rem; margin-bottom: 0.3rem; }
+  .form-input,
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;       /* prevent iOS zoom-in on focus */
+    padding: 0.65rem 0.9rem;
+    min-height: 44px;      /* touch target */
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--dark-border);
+    color: var(--text);
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: 2px solid var(--gold);
+    border-color: transparent;
+  }
+  .checkout-form .btn { min-height: 48px; font-size: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

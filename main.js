@@ -210,3 +210,28 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+/* ── Live-reload settings when Admin panel saves from another tab ── */
+window.addEventListener('storage', (e) => {
+  if (e.key === 'lp_db_settings_store' && e.newValue) {
+    try {
+      const settings = JSON.parse(e.newValue);
+      applySettings(settings);
+    } catch {}
+  }
+  if (e.key === 'lp_db_products' && e.newValue) {
+    try {
+      const products = JSON.parse(e.newValue);
+      window.__products = products;
+      renderProducts(products);
+      initSearch((filtered, query) => renderProductCards(filtered, 'all', query));
+    } catch {}
+  }
+  if (e.key === 'lp_db_categories' && e.newValue) {
+    try {
+      const categories = JSON.parse(e.newValue);
+      window.__categories = categories;
+      renderCategories(categories);
+    } catch {}
+  }
+});
