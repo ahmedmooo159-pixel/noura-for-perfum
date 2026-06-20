@@ -47,6 +47,16 @@ async function init() {
     if (user) {
       showAdminUI();
       loadAll();
+      // Auto-refresh orders every 30 seconds
+      setInterval(async () => {
+        try {
+          _orders = await fetchCollection('orders');
+          _renderStats();
+          _renderOrdersTable(
+            document.querySelector('.order-filter-btn.active')?.dataset.filter || 'all'
+          );
+        } catch(e) {}
+      }, 30000);
     } else {
       showLoginUI();
     }
