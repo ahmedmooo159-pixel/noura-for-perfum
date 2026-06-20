@@ -17,7 +17,8 @@
  * 5. انسخ الـ databaseURL وضعه أدناه
  */
 const FIREBASE_DB_URL =
-  'https://nouraberfum-default-rtdb.firebaseio.com'; // مثال: https://my-store-default-rtdb.firebaseio.com
+  'https://nouraberfum-default-rtdb.europe-west1.firebasedatabase.app';
+// مثال: https://my-store-default-rtdb.firebaseio.com
 
 /* ─── هل Firebase مُفعَّل؟ ─────────────────────────────────────────────── */
 const FIREBASE_ENABLED =
