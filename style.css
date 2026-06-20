@@ -1531,3 +1531,84 @@ select   { cursor: pointer; }
   .stars-row { font-size: 0.75rem; }
   .logo-link .brand-name { font-size: 1.1rem; }
 }
+
+/* ============================================================
+   ORDER TRACKING PANEL
+   ============================================================ */
+
+.track-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.track-search-row {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.track-input {
+  flex: 1;
+  border-radius: var(--radius-full);
+  padding: 0.65rem 1.1rem;
+  font-size: 0.95rem;
+}
+
+.track-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.track-card {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.track-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.track-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.track-products {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.track-total {
+  font-size: 0.9rem;
+}
+
+.track-total strong {
+  color: var(--gold);
+}
+
+.track-delivery {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.track-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}

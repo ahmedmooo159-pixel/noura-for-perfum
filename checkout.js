@@ -1,12 +1,12 @@
 /**
  * checkout.js — Checkout Flow Module
  * Handles checkout panel open/close, form validation,
- * Firestore order save, and WhatsApp redirect.
+ * Firestore order save, and order tracking.
  */
 
-import { addDoc } from './firebase.js';
+import { addDoc, fetchCollection } from './firebase.js';
 import { renderCheckoutSummary, getCartItems, getTotal, clearCart } from './cart.js';
-import { showToast, closeSidePanel, openModal, closeModal, setTextById } from './ui.js';
+import { showToast, closeSidePanel } from './ui.js';
 
 /* ════════════════════════════════
    INIT
@@ -16,6 +16,7 @@ export function initCheckout() {
   _bindCheckoutOpen();
   _bindCheckoutClose();
   _bindCheckoutSubmit();
+  _bindTrackOrder();
 }
 
 /* ── Open checkout from cart ── */
@@ -92,21 +93,11 @@ function _bindCheckoutSubmit() {
     const delivery = document.getElementById('delivery-type')?.value || 'delivery';
 
     const settings = window.__storeSettings || {};
-    // ===== EDIT HERE: Delivery Fee =====
     const fee      = Number(settings.deliveryFee) || 0;
     const subtotal = getTotal();
     const total    = subtotal + (delivery === 'delivery' ? fee : 0);
-    
-    // ===== EDIT HERE: WhatsApp Number =====
-    let rawNumber = (settings.whatsappNumber || '201000000000').trim().replace(/^\+|^00/, '');
-    if (rawNumber.startsWith('0') && rawNumber.length > 1) {
-      const isSaudi = settings.whatsappNumber.includes('966') || rawNumber.startsWith('05');
-      const code = isSaudi ? '966' : '20';
-      rawNumber = code + rawNumber.substring(1);
-    }
-    const waNumber = rawNumber.replace(/\D/g, '');
 
-    /* Save to Firestore */
+    /* Save to Firebase */
     await addDoc('orders', {
       customerName: name,
       phone,
@@ -123,30 +114,6 @@ function _bindCheckoutSubmit() {
       status: 'pending',
     });
 
-    /* Build WhatsApp message */
-    const deliveryLine = delivery === 'pickup'
-      ? '🏪 استلام من المحل'
-      : `🚚 توصيل${fee > 0 ? ` (${fee.toLocaleString('ar-EG')} EGP)` : ' مجاني'}`;
-
-    const lines = [
-      '🛍️ *طلب جديد*',
-      '',
-      `👤 ${name}`,
-      `📞 ${phone}`,
-      `🏙️ ${city}`,
-      `📍 ${address}`,
-      '',
-      '📦 *المنتجات:*',
-      ...cartItems.map(i => `• ${i.name} × ${i.qty} = ${(i.price * i.qty).toLocaleString('ar-EG')} EGP`),
-      '',
-      deliveryLine,
-      `💰 *الإجمالي: ${total.toLocaleString('ar-EG')} EGP*`,
-      notes ? `📝 ملاحظات: ${notes}` : null,
-    ].filter(l => l !== null).join('\n');
-
-    const waUrl = `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(lines)}`;
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-
     /* Cleanup */
     clearCart();
     form.reset();
@@ -157,9 +124,104 @@ function _bindCheckoutSubmit() {
 
     /* Restore button */
     btn.disabled  = false;
-    btn.innerHTML = '<i data-lucide="message-circle"></i> تأكيد الطلب عبر واتساب';
+    btn.innerHTML = '<i data-lucide="package-check"></i> تأكيد الطلب';
     if (window.lucide) lucide.createIcons();
 
-    showToast('تم إرسال طلبك بنجاح! ✓');
+    showToast('✓ تم استلام طلبك بنجاح! تابع طلبك برقم هاتفك');
   });
+}
+
+/* ════════════════════════════════
+   ORDER TRACKING
+════════════════════════════════ */
+
+function _bindTrackOrder() {
+  /* Open tracking panel */
+  document.getElementById('track-order-btn')?.addEventListener('click', () => {
+    document.getElementById('track-panel')?.classList.remove('hidden');
+    document.getElementById('track-overlay')?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    // clear previous results
+    document.getElementById('track-results')?.classList.add('hidden');
+    document.getElementById('track-phone-input').value = '';
+  });
+
+  /* Close tracking panel */
+  const closeTrack = () => {
+    document.getElementById('track-panel')?.classList.add('hidden');
+    document.getElementById('track-overlay')?.classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+  document.getElementById('track-close')?.addEventListener('click', closeTrack);
+  document.getElementById('track-overlay')?.addEventListener('click', closeTrack);
+
+  /* Search orders by phone */
+  document.getElementById('track-search-btn')?.addEventListener('click', _searchOrders);
+  document.getElementById('track-phone-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') _searchOrders();
+  });
+}
+
+async function _searchOrders() {
+  const phone = document.getElementById('track-phone-input')?.value.trim();
+  if (!phone) {
+    showToast('أدخل رقم هاتفك', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('track-search-btn');
+  btn.disabled = true;
+  btn.textContent = '...جاري البحث';
+
+  try {
+    const allOrders = await fetchCollection('orders');
+    const myOrders  = allOrders.filter(o => o.phone === phone);
+
+    const resultsEl = document.getElementById('track-results');
+    const listEl    = document.getElementById('track-orders-list');
+
+    if (!myOrders.length) {
+      listEl.innerHTML = `
+        <div class="track-empty">
+          <i data-lucide="search-x" style="width:40px;height:40px;opacity:0.3;margin:0 auto 0.75rem;display:block"></i>
+          <p>لا توجد طلبات بهذا الرقم</p>
+        </div>`;
+    } else {
+      const sorted = [...myOrders].sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+      listEl.innerHTML = sorted.map(o => _orderTrackCard(o)).join('');
+    }
+
+    resultsEl?.classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+  } catch (err) {
+    showToast('حدث خطأ، حاول مرة أخرى', 'error');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'بحث';
+}
+
+function _orderTrackCard(o) {
+  const statusMap = {
+    pending:   { label: 'قيد الانتظار', icon: 'clock',        color: '#f39c12' },
+    confirmed: { label: 'تم التأكيد',   icon: 'check-circle', color: '#3498db' },
+    delivered: { label: 'تم التسليم',   icon: 'package-check',color: '#2ecc71' },
+    cancelled: { label: 'ملغي',         icon: 'x-circle',     color: '#e74c3c' },
+  };
+  const s   = statusMap[o.status] || statusMap.pending;
+  const date = o.createdAt ? new Date(o.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : '—';
+
+  return `
+    <div class="track-card glass-card">
+      <div class="track-card-header">
+        <div class="track-status" style="color:${s.color}">
+          <i data-lucide="${s.icon}" style="width:18px;height:18px"></i>
+          <span>${s.label}</span>
+        </div>
+        <span class="track-date">${date}</span>
+      </div>
+      <div class="track-products">${o.productsText || '—'}</div>
+      <div class="track-total">الإجمالي: <strong>${(o.total||0).toLocaleString('ar-EG')} EGP</strong></div>
+      ${o.deliveryType === 'pickup' ? '<div class="track-delivery">🏪 استلام من المحل</div>' : '<div class="track-delivery">🚚 توصيل للمنزل</div>'}
+    </div>`;
 }

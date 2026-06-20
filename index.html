@@ -54,6 +54,9 @@
           <i data-lucide="shopping-bag"></i>
           <span id="cart-count" class="cart-badge hidden" aria-live="polite">0</span>
         </button>
+        <button id="track-order-btn" class="icon-btn" aria-label="تتبع طلبك" title="تتبع الطلب">
+          <i data-lucide="package-search"></i>
+        </button>
         <a href="admin.html" class="icon-btn" aria-label="لوحة التحكم" title="Admin Panel">
           <i data-lucide="settings"></i>
         </a>
@@ -318,12 +321,34 @@
         <div id="checkout-summary" class="checkout-summary glass-card"></div>
 
         <button type="submit" id="confirm-order-btn" class="btn btn-gold btn-full">
-          <i data-lucide="message-circle"></i>
-          تأكيد الطلب عبر واتساب
+          <i data-lucide="package-check"></i>
+          تأكيد الطلب
         </button>
       </form>
     </div>
   </div>
+
+
+  <!-- ========== ORDER TRACKING PANEL ========== -->
+  <div id="track-overlay" class="panel-overlay hidden" aria-hidden="true"></div>
+  <aside id="track-panel" class="side-panel" aria-label="تتبع طلبك" aria-hidden="true">
+    <div class="panel-header">
+      <h2 class="panel-title">تتبع طلبك</h2>
+      <button id="track-close" class="icon-btn" aria-label="إغلاق">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="panel-body">
+      <p class="track-hint">أدخل رقم هاتفك لعرض طلباتك</p>
+      <div class="track-search-row">
+        <input id="track-phone-input" type="tel" placeholder="رقم الهاتف..." class="track-input" />
+        <button id="track-search-btn" class="btn btn-gold">بحث</button>
+      </div>
+      <div id="track-results" class="hidden">
+        <div id="track-orders-list" class="track-orders-list"></div>
+      </div>
+    </div>
+  </aside>
 
   <!-- ========== TOAST NOTIFICATION ========== -->
   <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
