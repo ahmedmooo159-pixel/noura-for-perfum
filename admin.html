@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" defer></script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" id="main-css" href="style.css" />
 </head>
 <body class="admin-body">
 
@@ -584,6 +584,12 @@
   </div>
 
   <!-- Admin Controller module script -->
-  <script type="module" src="admin.js"></script>
-</body>
+<script>
+  const v = Date.now();
+  document.getElementById('main-css').href = `style.css?v=${v}`;
+  const s = document.createElement('script');
+  s.type = 'module';
+  s.src = `admin.js?v=${v}`;
+  document.body.appendChild(s);
+</script></body>
 </html>
