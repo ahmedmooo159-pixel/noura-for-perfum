@@ -17,7 +17,7 @@
  * 5. انسخ الـ databaseURL وضعه أدناه
  */
 const FIREBASE_DB_URL =
-  'YOUR_DATABASE_URL'; // مثال: https://my-store-default-rtdb.firebaseio.com
+  'https://nouraberfum-default-rtdb.firebaseio.com'; // مثال: https://my-store-default-rtdb.firebaseio.com
 
 /* ─── هل Firebase مُفعَّل؟ ─────────────────────────────────────────────── */
 const FIREBASE_ENABLED =
@@ -30,57 +30,57 @@ const FIREBASE_ENABLED =
    ════════════════════════════════════════════════════════════════════════ */
 
 const DEFAULT_SETTINGS = {
-  storeName:         'Luxury Perfume',
-  favicon:           '',
-  logoUrl:           '',
-  metaDesc:          'متجر عطور فاخرة - اكتشف أرقى العطور العربية والعالمية',
-  heroBgUrl:         '',
-  heroSubtitle:      'أرقى العطور الشرقية',
-  heroTitle:         'اكتشف عالم <br/><span class="gold-text">الرفاهية</span>',
-  heroDesc:          'عطور حصرية تحكي قصة الأناقة والفخامة',
-  heroCta:           'تسوق الآن',
-  offerBannerText:   'شحن مجاني للطلبات فوق 500 جنيه! 🎉',
-  featuredLabel:     'مجموعتنا المميزة',
-  featuredTitle:     'أبرز العطور',
-  categoriesLabel:   'تصفح حسب',
-  categoriesTitle:   'الفئات',
-  whyTitle:          'لماذا تختارنا؟',
+  storeName: 'Luxury Perfume',
+  favicon: '',
+  logoUrl: '',
+  metaDesc: 'متجر عطور فاخرة - اكتشف أرقى العطور العربية والعالمية',
+  heroBgUrl: '',
+  heroSubtitle: 'أرقى العطور الشرقية',
+  heroTitle: 'اكتشف عالم <br/><span class="gold-text">الرفاهية</span>',
+  heroDesc: 'عطور حصرية تحكي قصة الأناقة والفخامة',
+  heroCta: 'تسوق الآن',
+  offerBannerText: 'شحن مجاني للطلبات فوق 500 جنيه! 🎉',
+  featuredLabel: 'مجموعتنا المميزة',
+  featuredTitle: 'أبرز العطور',
+  categoriesLabel: 'تصفح حسب',
+  categoriesTitle: 'الفئات',
+  whyTitle: 'لماذا تختارنا؟',
   testimonialsTitle: 'آراء عملائنا',
-  why1Title: 'جودة أصيلة',   why1Desc: 'نقدم فقط عطورًا أصيلة 100% من أفضل دور العطور.',
-  why2Title: 'توصيل سريع',   why2Desc: 'نوصل طلبك في أسرع وقت ممكن.',
-  why3Title: 'دفع آمن',      why3Desc: 'طرق دفع متعددة وآمنة مع ضمان استرداد المبلغ.',
-  footerDesc:    'متجرك المفضل لأرقى العطور.',
-  footerPhone:   '+20 100 000 0000',
-  footerEmail:   'support@luxury.com',
+  why1Title: 'جودة أصيلة', why1Desc: 'نقدم فقط عطورًا أصيلة 100% من أفضل دور العطور.',
+  why2Title: 'توصيل سريع', why2Desc: 'نوصل طلبك في أسرع وقت ممكن.',
+  why3Title: 'دفع آمن', why3Desc: 'طرق دفع متعددة وآمنة مع ضمان استرداد المبلغ.',
+  footerDesc: 'متجرك المفضل لأرقى العطور.',
+  footerPhone: '+20 100 000 0000',
+  footerEmail: 'support@luxury.com',
   footerAddress: 'القاهرة، مصر',
   whatsappNumber: '201000000000', // ===== EDIT HERE: رقم الواتساب بدون + =====
-  facebookUrl:   '',
-  instagramUrl:  '',
-  deliveryFee:   '50',
-  colorGold:     '#c9a84c',
-  colorDark:     '#0a0a0a',
-  fontDisplay:   'Playfair Display',
+  facebookUrl: '',
+  instagramUrl: '',
+  deliveryFee: '50',
+  colorGold: '#c9a84c',
+  colorDark: '#0a0a0a',
+  fontDisplay: 'Playfair Display',
 };
 
 const DEFAULT_PRODUCTS = [
-  { id:'p1', name:'Noir Élégance',  brand:'Maison Luxe',  price:250, oldPrice:312, discount:20, imageUrl:'https://images.pexels.com/photos/3059609/pexels-photo-3059609.jpeg?auto=compress&cs=tinysrgb&w=800', rating:5, category:'رجالي',   description:'عطر خشبي مسكي غني بالعنبر والعود.', notes:['العنبر','العود','المسك'] },
-  { id:'p2', name:'Royal Oud',      brand:'Arabic Oud',   price:320, oldPrice:376, discount:15, imageUrl:'https://images.pexels.com/photos/7702669/pexels-photo-7702669.jpeg?auto=compress&cs=tinysrgb&w=800', rating:5, category:'رجالي',   description:'عود ملكي أصيل من أجود الأخشاب.',   notes:['العود','الصندل','الزعفران'] },
-  { id:'p3', name:'Velvet Rose',    brand:'Paris Femme',  price:180, imageUrl:'https://images.pexels.com/photos/755992/pexels-photo-755992.jpeg?auto=compress&cs=tinysrgb&w=800',                              rating:4, category:'نسائي',   description:'وردة مخملية حريرية بلمسة مسكية.',   notes:['الورد','البيونيا','المسك الأبيض'] },
-  { id:'p4', name:'Dark Intense',   brand:'Black Label',  price:290, oldPrice:322, discount:10, imageUrl:'https://images.pexels.com/photos/1961795/pexels-photo-1961795.jpeg?auto=compress&cs=tinysrgb&w=800', rating:5, category:'يونيسكس', description:'كثيف وحيوي، مزيج من التوابل والخشب.',notes:['الفلفل','البتشولي','الأرز'] },
-  { id:'p5', name:'Gold Elixir',    brand:'Maison Luxe',  price:350, imageUrl:'https://images.pexels.com/photos/36834014/pexels-photo-36834014.jpeg?auto=compress&cs=tinysrgb&w=800',                          rating:5, category:'نسائي',   description:'إكسير ذهبي بعبق الياسمين والفانيلا.',notes:['الياسمين','الفانيلا','الهيليون'] },
-  { id:'p6', name:'Arabian Nights', brand:'Arabic Oud',   price:420, oldPrice:560, discount:25, imageUrl:'https://images.pexels.com/photos/36834014/pexels-photo-36834014.jpeg?auto=compress&cs=tinysrgb&w=800', rating:5, category:'يونيسكس', description:'رحلة في عطور ليالي الشرق الساحرة.', notes:['العود','الورد الطائفي','الكهرمان'] },
+  { id: 'p1', name: 'Noir Élégance', brand: 'Maison Luxe', price: 250, oldPrice: 312, discount: 20, imageUrl: 'https://images.pexels.com/photos/3059609/pexels-photo-3059609.jpeg?auto=compress&cs=tinysrgb&w=800', rating: 5, category: 'رجالي', description: 'عطر خشبي مسكي غني بالعنبر والعود.', notes: ['العنبر', 'العود', 'المسك'] },
+  { id: 'p2', name: 'Royal Oud', brand: 'Arabic Oud', price: 320, oldPrice: 376, discount: 15, imageUrl: 'https://images.pexels.com/photos/7702669/pexels-photo-7702669.jpeg?auto=compress&cs=tinysrgb&w=800', rating: 5, category: 'رجالي', description: 'عود ملكي أصيل من أجود الأخشاب.', notes: ['العود', 'الصندل', 'الزعفران'] },
+  { id: 'p3', name: 'Velvet Rose', brand: 'Paris Femme', price: 180, imageUrl: 'https://images.pexels.com/photos/755992/pexels-photo-755992.jpeg?auto=compress&cs=tinysrgb&w=800', rating: 4, category: 'نسائي', description: 'وردة مخملية حريرية بلمسة مسكية.', notes: ['الورد', 'البيونيا', 'المسك الأبيض'] },
+  { id: 'p4', name: 'Dark Intense', brand: 'Black Label', price: 290, oldPrice: 322, discount: 10, imageUrl: 'https://images.pexels.com/photos/1961795/pexels-photo-1961795.jpeg?auto=compress&cs=tinysrgb&w=800', rating: 5, category: 'يونيسكس', description: 'كثيف وحيوي، مزيج من التوابل والخشب.', notes: ['الفلفل', 'البتشولي', 'الأرز'] },
+  { id: 'p5', name: 'Gold Elixir', brand: 'Maison Luxe', price: 350, imageUrl: 'https://images.pexels.com/photos/36834014/pexels-photo-36834014.jpeg?auto=compress&cs=tinysrgb&w=800', rating: 5, category: 'نسائي', description: 'إكسير ذهبي بعبق الياسمين والفانيلا.', notes: ['الياسمين', 'الفانيلا', 'الهيليون'] },
+  { id: 'p6', name: 'Arabian Nights', brand: 'Arabic Oud', price: 420, oldPrice: 560, discount: 25, imageUrl: 'https://images.pexels.com/photos/36834014/pexels-photo-36834014.jpeg?auto=compress&cs=tinysrgb&w=800', rating: 5, category: 'يونيسكس', description: 'رحلة في عطور ليالي الشرق الساحرة.', notes: ['العود', 'الورد الطائفي', 'الكهرمان'] },
 ];
 
 const DEFAULT_CATEGORIES = [
-  { id:'c1', name:'رجالي',   imageUrl:'https://images.pexels.com/photos/3045999/pexels-photo-3045999.jpeg?auto=compress&cs=tinysrgb&w=800' },
-  { id:'c2', name:'نسائي',   imageUrl:'https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg?auto=compress&cs=tinysrgb&w=800' },
-  { id:'c3', name:'يونيسكس', imageUrl:'https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { id: 'c1', name: 'رجالي', imageUrl: 'https://images.pexels.com/photos/3045999/pexels-photo-3045999.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { id: 'c2', name: 'نسائي', imageUrl: 'https://images.pexels.com/photos/428340/pexels-photo-428340.jpeg?auto=compress&cs=tinysrgb&w=800' },
+  { id: 'c3', name: 'يونيسكس', imageUrl: 'https://images.pexels.com/photos/4041392/pexels-photo-4041392.jpeg?auto=compress&cs=tinysrgb&w=800' },
 ];
 
 const DEFAULT_TESTIMONIALS = [
-  { id:'t1', name:'أحمد السيد',    rating:5, text:'جودة رائعة وتوصيل سريع. سأعود للطلب مجددًا!' },
-  { id:'t2', name:'منى العمري',    rating:5, text:'العطر تجاوز توقعاتي. يدوم طويلاً ورائحته مميزة.' },
-  { id:'t3', name:'خالد الزهراني', rating:5, text:'خدمة عملاء ممتازة وتغليف فاخر. أنصح به بشدة.' },
+  { id: 't1', name: 'أحمد السيد', rating: 5, text: 'جودة رائعة وتوصيل سريع. سأعود للطلب مجددًا!' },
+  { id: 't2', name: 'منى العمري', rating: 5, text: 'العطر تجاوز توقعاتي. يدوم طويلاً ورائحته مميزة.' },
+  { id: 't3', name: 'خالد الزهراني', rating: 5, text: 'خدمة عملاء ممتازة وتغليف فاخر. أنصح به بشدة.' },
 ];
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -156,13 +156,13 @@ function _lsWrite(key, data) {
   // Notify same-tab listeners (BroadcastChannel for cross-tab)
   try {
     _bc.postMessage({ key: `lp_db_${key}`, data });
-  } catch {}
+  } catch { }
 }
 
 function _lsWriteSettings(data) {
   const s = JSON.stringify(data);
   localStorage.setItem('lp_db_settings_store', s);
-  try { _bc.postMessage({ key: 'lp_db_settings_store', data }); } catch {}
+  try { _bc.postMessage({ key: 'lp_db_settings_store', data }); } catch { }
 }
 
 /* ── BroadcastChannel for instant cross-tab sync (no Firebase needed) ── */
@@ -170,14 +170,14 @@ let _bc;
 try {
   _bc = new BroadcastChannel('lp_sync');
 } catch {
-  _bc = { postMessage: () => {}, addEventListener: () => {} };
+  _bc = { postMessage: () => { }, addEventListener: () => { } };
 }
 
 function _seedLocalDB() {
-  if (!_lsRead('products'))     _lsWrite('products', DEFAULT_PRODUCTS);
-  if (!_lsRead('categories'))   _lsWrite('categories', DEFAULT_CATEGORIES);
+  if (!_lsRead('products')) _lsWrite('products', DEFAULT_PRODUCTS);
+  if (!_lsRead('categories')) _lsWrite('categories', DEFAULT_CATEGORIES);
   if (!_lsRead('testimonials')) _lsWrite('testimonials', DEFAULT_TESTIMONIALS);
-  if (!_lsRead('orders'))       _lsWrite('orders', []);
+  if (!_lsRead('orders')) _lsWrite('orders', []);
   if (!localStorage.getItem('lp_db_settings_store')) {
     _lsWriteSettings(DEFAULT_SETTINGS);
   }
@@ -352,7 +352,7 @@ export function listenToCollection(name, callback) {
           lastSnapshot = snapshot;
           callback(_fbObjectToArray(data));
         }
-      } catch {}
+      } catch { }
     };
     poll();
     const interval = setInterval(poll, 10_000);
@@ -375,7 +375,7 @@ export function listenToSettings(callback) {
         const data = await FB.get('settings/store');
         const snapshot = JSON.stringify(data);
         if (snapshot !== lastSnapshot) { lastSnapshot = snapshot; callback(data); }
-      } catch {}
+      } catch { }
     };
     poll();
     const interval = setInterval(poll, 10_000);
